@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+create_alias () {
+    dd_alias_count=$( cat ~/.zshrc | grep 'alias ddq=' -c )
+    if [[ $dd_alias_count > 0 ]]
+    then
+        echo "Alias for 'ddq' already exists in ~/.zshrc"
+        exit
+    else
+        echo "Setting alias ddq (DataDog Query) in ~/.zshrc..."
+        echo "alias ddq='$PWD/formatter.py'" >> ~/.zshrc
+    fi
+}
+
+printf "Create alias 'ddq' in ~/.zshrc [Y/n]? "
+read -r zsh_opt
+zsh_opt=${zsh_opt:-Y}
+zsh_opt=${(L)zsh_opt}     # tolower
+if [[ "$zsh_opt" =~ ^(yes|y)$ ]]
+then
+    create_alias
+    source ~/.zshrc
+    echo "All set! Go ahead and run 'ddq -h' too see the formatter options"
+else
+    echo "Nothing to do, you can run ./formatter.py without an alias..."
+fi
+
+
+
+
+
+
+
+
+

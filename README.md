@@ -6,6 +6,8 @@ This tool generates a query for DataDog with appropriate syntax from command lin
 
 Mainly used to handle the annoying regex formats and escape special characters.
 
+Outputs the log query & a link to DataDog.
+
 ## Prerequisites
 * Python 3
 ```sh
@@ -13,6 +15,12 @@ brew install python
 ```
 
 ## Getting started
+### Setup
+To create an alias `ddq` (DataDog Query) run the setup script:
+```sh
+./setup
+```
+### Help
 Use `-h` flag to see all the input options:
 ```sh
 Process query params

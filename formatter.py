@@ -4,6 +4,7 @@ import re
 import argparse
 
 QUERY_TITLE = 'DataDog query:'
+QUERY_LINK_TITLE = 'DataDog query link:'
 
 parser = argparse.ArgumentParser(description='Process query params')
 parser.add_argument('-e', metavar='ENV_ID', type=str, nargs='?',
@@ -83,8 +84,12 @@ generators = {
 }
 
 def printQuery(query):
+	query = re.sub(' +', ' ', query)
+	query_link = 'https://app.datadoghq.com/logs?query=' + '(' + query[:len(query)-1] + ')'
 	print('\n' + QUERY_TITLE, end = '\n\n')
-	print(re.sub(' +', ' ', query), end='\n\n')
+	print(query, end='\n\n')
+	print(QUERY_LINK_TITLE, end = '\n\n')
+	print(query_link , end='\n\n')
 
 def main():
 	global generators, parser

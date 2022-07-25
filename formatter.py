@@ -59,7 +59,7 @@ def generateService(service):
 def generateStatus(status):
 	if len(status) <= 1:
 		return ''
-	return 'status:' + status[0].upper() + status[1:]
+	return 'status:' + status.lower()
 
 def generateMsg(msg):
 	out = '@msg:*'

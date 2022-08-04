@@ -30,10 +30,13 @@ def formatMsg(msg):
 	for w in msg_arr:
 		escaped = w.translate(str.maketrans({"-":  r"\-",
                                           "]":  r"\]",
+                                          "[":  r"\[",
                                           "\\": r"\\",
                                           "^":  r"\^",
                                           "$":  r"\$",
                                           "*":  r"\*",
+                                          "(":  r"\(",
+                                          ")":  r"\)",
                                           ".":  r"\."}))
 		out += escaped + '?'
 	return out[:len(out) - 1]

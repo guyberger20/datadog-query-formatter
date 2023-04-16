@@ -2,6 +2,8 @@
 
 A workflow to be run via Alfred (Pro).
 
+Supports 2 commands: `ddq`, `ddm`.
+
 ## Version
 
 Current version supports filtering messages and environments only.
@@ -20,9 +22,25 @@ brew install python
 
 ### Setup
 
-Download & run `DataDog Query Workflow.alfredworkflow`.
+Download & run `DataDog-Query.alfredworkflow`.
 
-## Examples
+## (ddm) DataDog Message formatter Examples
+
+Used to sanitize a string to a datadog search format.
+
+Input:
+
+In Alfred search bar type: `ddm "LPP-123-456"`
+
+Output:
+
+`*LPP\-123\-456*`
+
+---
+
+## (ddq) DataDog Query Search Examples
+
+Used to find a message in DataDog (opens in the browser).
 
 ### Default environment (production)
 
@@ -37,8 +55,6 @@ Input:
 Output:
 
 will open DataDog with the message filter and in the default environment - production.
-
----
 
 ---
 

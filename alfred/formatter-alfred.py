@@ -3,6 +3,8 @@ import sys
 import re
 import urllib.parse
 
+msgPostfix = '*'
+
 
 def formatMsg(msg):
     msg_arr = msg.split(' ')
@@ -37,14 +39,22 @@ def parseEnv(envId):
         return prefix + envId
 
 
-def generateMsg(msg, env):
-    out = '@msg:*'
-    out += formatMsg(msg)
-    return out + '* ' + env
+def generateMsg(msg, env, printMsgOnly):
+    global msgPostfix
+    prefix = '*' if printMsgOnly else '@msg:*'
+    formattedMsg = formatMsg(msg)
+    if env:
+        formattedEnv = ' ' + env
+    else:
+        formattedEnv = ''
+    return prefix + formattedMsg + msgPostfix + formattedEnv
 
 
-def printQuery(query):
+def printQuery(query, printMsgOnly):
     query = re.sub(' +', ' ', query)
+    if printMsgOnly:
+        print(query, end='')
+        return
     encoded_query = urllib.parse.quote(query)
     query_link = 'https://app.datadoghq.com/logs?query=' + \
         encoded_query
@@ -54,19 +64,23 @@ def printQuery(query):
 def main():
     global generators, parser
     env = None
+    printMsgOnly = False
     if len(sys.argv) <= 1:
         print('missing message argument')
         return
     if len(sys.argv) == 2:
         env = parseEnv('prod')
     elif len(sys.argv) == 3:
-        env = parseEnv(sys.argv[2])
+        if sys.argv[2] == 'msg-only':
+            printMsgOnly = True
+        else:
+            env = parseEnv(sys.argv[2])
     else:
         print('too many arguments')
 
     msg = sys.argv[1]
-    query = generateMsg(msg, env)
-    printQuery(query)
+    query = generateMsg(msg, env, printMsgOnly)
+    printQuery(query, printMsgOnly)
 
 
 if __name__ == '__main__':
